@@ -1,11 +1,11 @@
-import os
-
+import argsniffer
+import VirtFS
 
 
 
 def main():
-    args = _getargs()
-    vfs = _makefs()
-    logs = _logs(args.logfile, args.user)
+    args = argsniffer.parse_args()
+    vfs = VirtFS(args.filesystem)
+    logs = (args.logfile, args.user)
 
 main()

@@ -5,30 +5,31 @@ class VirtFS:
         self.tree = {}
         self.dir = '/'
         self.init_fs(path)
-    
+
     def init_fs(self, path):
         with tarfile.open(path, "r") as tar:
             for i in tar.getmembers():
                 self.pushtree(i)
-    
+
     def pushtree(self, file):
-        path = file.name.split('/')
+        path = file.name.strip('/').split('/')[1:]
         current = self.tree
 
         for i in path:
             if i not in current:
                 current[i] = {}
             current = current[i]
-    
+
+    ##Есть path, на всякий
     def listdir(self, path=None):
         if path is None:
             path = self.dir
-        dir = self.jumpto(path)
+        dir = self.goto(path)
         if dir is None:
-            print(F"ls: {path}: No such file or directory")
-            return []
-        return list(dir.keys())
-    
+            print(f"ls: {path}: No such file or directory")
+            return
+        return [entry for entry in dir.keys()]
+
     def jumpto(self, path):
         dir = self.goto(path)
         if dir is not None:
@@ -43,9 +44,11 @@ class VirtFS:
                             new_parts.pop()
                     elif i != '.' and i != '':
                         new_parts.append(i)
+                self.dir = '/' + '/'.join(new_parts) if new_parts else '/'
         else:
             print(f"cd: {path}: No such directory")
-    
+
+    ##broken
     def goto(self, path):
         if path.startswith('/'):
             dir = self.tree
@@ -64,7 +67,7 @@ class VirtFS:
             else:
                 new_path.append(i)
         
-        dir - self.tree
+        dir = self.tree
         for i in new_path:
             if i in dir:
                 dir = dir[i]
@@ -72,7 +75,6 @@ class VirtFS:
                 return None
         
         return dir
-    
 
     def ls(vfs):
         for i in vfs.listdir():
@@ -86,7 +88,7 @@ class VirtFS:
         dir = vfs.dir.strip('/')
         for i in tar.getmembers():
             if i.isfile() and i.name.startswith(dir):
-                print(f"{i.size} ./{i.name}")
+                print(f"{i.size} {i.name}")
 
     def uname():
         print("Darwin")

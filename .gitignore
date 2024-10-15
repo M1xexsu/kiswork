@@ -1,2 +1,4 @@
 work1/logs.csv
 work1/__pycache__
+*/.DS_Store
+.DS_Store

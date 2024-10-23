@@ -34,7 +34,7 @@ def switchcommand(command, vfs, tar, user):
             else:
                 print("zsh: rmdir: missing argument")
         elif command.startswith("uname"):
-            print("UNIX-like OS Emulator")
+            print("Darwin")
         elif command.startswith("du"):
             vfs.du(tar)
         elif command == 'exit':

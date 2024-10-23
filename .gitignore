@@ -1,4 +1,7 @@
 work1/logs.csv
-work1/__pycache__
+*/__pycache__
 */.DS_Store
 .DS_Store
+work2/plantuml.jar
+work2/output.jar
+work2/work2env

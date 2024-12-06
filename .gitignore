@@ -5,3 +5,5 @@ work1/logs.csv
 work2/plantuml.jar
 work2/output.jar
 work2/work2env
+*.xml
+*.txt
